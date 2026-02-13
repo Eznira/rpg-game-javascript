@@ -1,370 +1,127 @@
-:root {
-  --bg: #0f1724;
-  --panel: #0b1220;
-  --accent: #ffb86b;
-  --muted: #9aa6b2;
-  --hp: #ff6b6b;
-  --mp: #6bb6ff;
-  --glass: rgba(255, 255, 255, 0.04);
-  --radius: 10px;
-  --fw-regular: 400;
-  --fw-bold: 700;
-  --gap: 12px;
-  font-size: 16px;
-}
-
+/* RESET */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  margin: 10px;
-  padding: 2px;
 }
-html,
+
+/* PAGE BACKGROUND + FONT */
 body {
-  height: 100%;
-}
-body {
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    "Segoe UI",
-    Roboto,
-    "Helvetica Neue",
-    Arial;
-  font-weight: var(--fw-regular);
-  background: linear-gradient(180deg, var(--bg) 0%, #08111b 100%);
-  color: #e6eef6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  padding: 24px;
+  font-family: Arial, sans-serif;
+  background: #1e1f26; /* soft dark gray */
+  color: #eaeaea;
+  min-height: 100vh;
+
   display: flex;
-  align-items: center;
   justify-content: center;
-}
-
-/* Main layout */
-/* .game-wrap {
-  width: 100%;
-  max-width: 1100px;
-  display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: var(--gap);
-  align-items: start;
-} */
-
-/* Game viewport / canvas container */
-/* .viewport {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.02),
-    rgba(0, 0, 0, 0.05)
-  );
-  border-radius: var(--radius);
-  box-shadow:
-    0 6px 30px rgba(2, 6, 23, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.02);
-  padding: 18px;
-  min-height: 560px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  position: relative;
-  overflow: hidden;
-} */
-
-/* If you use a <canvas id="game"> or .map element */
-#game,
-.map,
-canvas {
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  background: linear-gradient(180deg, #07111a, #04101a);
-  display: block;
-  object-fit: cover;
-}
-
-/* Heads-up display (HUD) */
-.hud {
-  display: flex;
-  gap: 10px;
   align-items: center;
-  justify-content: flex-start;
-  font-size: 14px;
+
+  padding: 20px;
 }
 
-/* Stat pill */
-.stat {
-  background: var(--glass);
-  padding: 8px 12px;
-  border-radius: 16px;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  color: var(--muted);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.03);
+/* MAIN GAME BOX */
+#game {
+  width: 100%;
+  max-width: 700px;
+  background: #2a2d35; /* lighter than background */
+  border-radius: 12px;
+  padding: 20px;
+
+  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* HP / MP bars */
-.bar {
-  width: 160px;
-  height: 10px;
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 999px;
-  overflow: hidden;
-  position: relative;
-  box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.6);
-}
-.bar > i {
-  display: block;
-  height: 100%;
-  background: linear-gradient(90deg, var(--hp), #ff9a9a);
-  width: 70%;
-  transition: width 0.45s ease;
-}
-.bar.mp > i {
-  background: linear-gradient(90deg, var(--mp), #9fd7ff);
-}
-
-/* Sidebar: inventory, quests, stats */
-.sidebar {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.02),
-    rgba(0, 0, 0, 0.03)
-  );
-  border-radius: var(--radius);
-  padding: 16px;
-  min-height: 560px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
-}
-
-/* Section titles */
-.section-title {
+/* STATS SECTION */
+#stats {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  font-weight: var(--fw-bold);
-  color: #eaf3ff;
-  font-size: 13px;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
 }
 
-/* Inventory grid */
-.inventory {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-}
-.slot {
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 8px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px dashed rgba(255, 255, 255, 0.03);
-  transition:
-    transform 0.12s ease,
-    box-shadow 0.12s ease;
-  position: relative;
-}
-.slot:focus,
-slot:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-  outline: none;
+/* STAT PILL DESIGN */
+.stat {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 10px 14px;
+  border-radius: 30px;
+  font-size: 14px;
+  color: #cfcfcf;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Item image placeholder */
-.item {
-  width: 48px;
-  height: 48px;
-  border-radius: 6px;
-  background: linear-gradient(180deg, #2a3440, #18202a);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--muted);
-  font-size: 12px;
+/* Make numbers brighter */
+.stat strong {
+  color: #ffffff;
 }
 
-/* Buttons */
-.btn {
-  background: linear-gradient(180deg, var(--accent), #ff9f3b);
-  color: #0b0b0b;
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  box-shadow: 0 6px 18px rgba(255, 160, 100, 0.12);
-  transition:
-    transform 0.12s ease,
-    box-shadow 0.12s ease,
-    opacity 0.12s;
-}
-.btn:active {
-  transform: translateY(1px);
-}
-.btn.ghost {
-  background: transparent;
-  color: var(--muted);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-/* Dialogue / log */
-.log {
-  background: rgba(0, 0, 0, 0.25);
-  padding: 8px;
-  border-radius: 8px;
-  font-size: 13px;
-  color: var(--muted);
-  max-height: 96px;
-  overflow: auto;
-}
-
-/* Tooltip */
-.tooltip {
-  position: absolute;
-  pointer-events: none;
-  background: rgba(5, 8, 12, 0.9);
-  color: #e6eef6;
-  padding: 8px 10px;
-  border-radius: 8px;
-  font-size: 13px;
-  transform: translateY(-8px);
-  opacity: 0;
-  transition:
-    opacity 0.12s,
-    transform 0.12s;
-  z-index: 40;
-}
-
-/* Small responsive tweaks */
-@media (max-width: 980px) {
-  .game-wrap {
-    grid-template-columns: 1fr;
-    padding: 8px;
-  }
-  .sidebar {
-    order: 2;
-  }
-  .viewport {
-    order: 1;
-    min-height: 480px;
-  }
-}
-
-/* Accessibility focus visible */
-:focus {
-  outline: none;
-}
-:focus-visible {
-  box-shadow: 0 0 0 3px rgba(255, 184, 107, 0.18);
-  border-radius: 8px;
-}
-
-/* Minimal animation for alive feel */
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.02);
-    opacity: 0.95;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-.pulse {
-  animation: pulse 3s ease-in-out infinite;
-}
-
-/* Controls layout */
+/* BUTTON CONTROLS */
 #controls {
   display: flex;
-  gap: 12px;
+  gap: 10px;
+  margin-bottom: 15px;
   flex-wrap: wrap;
-  align-items: center;
-  padding: 12px 0;
 }
 
-/* Base button reset + shared look */
-#controls button,
-button {
-  -webkit-appearance: none;
-  appearance: none;
-  background: linear-gradient(180deg, var(--accent), #ff9f3b);
-  color: #0b0b0b;
-  padding: 10px 14px;
-  border-radius: 8px;
+/* BUTTON STYLE */
+#controls button {
+  flex: 1;
+  min-width: 150px;
+
+  background: #ffb86b;
+  color: #222;
   border: none;
+  padding: 12px;
+  border-radius: 8px;
+
+  font-weight: bold;
   cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  box-shadow: 0 6px 18px rgba(255, 160, 100, 0.12);
-  transition:
-    transform 0.12s ease,
-    box-shadow 0.12s ease,
-    opacity 0.12s ease;
-  user-select: none;
 }
 
-/* Secondary / ghost variant */
-#controls button.ghost,
-button.ghost {
-  background: transparent;
-  color: var(--muted);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  box-shadow: none;
+/* BUTTON HOVER */
+#controls button:hover {
+  background: #ff9f3b;
+  transform: translateY(2px);
+  transition: 0.4s;
 }
 
-/* Hover / active states */
-#controls button:hover,
-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
-}
-#controls button:active,
-button:active {
-  transform: translateY(1px);
-  opacity: 0.95;
+/* BUTTON CLICK */
+#controls button:active {
+  transform: translateY(-1px);
 }
 
-/* Focus for accessibility */
-#controls button:focus,
-button:focus {
-  outline: none;
-}
-#controls button:focus-visible,
-button:focus-visible {
-  box-shadow:
-    0 0 0 4px rgba(255, 184, 107, 0.14),
-    0 6px 18px rgba(0, 0, 0, 0.6);
+/* MONSTER STATS BOX */
+#monsterStats {
+  background: rgba(255, 80, 80, 0.12);
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  border: 1px solid rgba(255, 80, 80, 0.25);
 }
 
-/* Small / condensed buttons (optional class) */
-#controls button.small {
-  padding: 6px 10px;
-  font-size: 13px;
+/* STORY / TEXT BOX */
+#text {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #eaeaea;
+  font-family: Arial, sans-serif;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Make buttons full-width on narrow screens */
-@media (max-width: 480px) {
+@media (max-width: 500px) {
   #controls {
     flex-direction: column;
-    align-items: stretch;
   }
+
   #controls button {
     width: 100%;
   }
