@@ -97,7 +97,7 @@ body {
   border-radius: 10px;
   margin-bottom: 15px;
 
-  display: flex;
+  display: none;
   justify-content: space-between;
   flex-wrap: wrap;
 
